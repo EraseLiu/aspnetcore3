@@ -10,9 +10,7 @@ namespace helloworld
         static void Main(string[] args)
         {
             Host.CreateDefaultBuilder()
-                .ConfigureWebHost(webHostBuilder => webHostBuilder
-                    .UseKestrel()
-                    .UseUrls("http://0.0.0.0:3721", "https://0.0.0.0:9527")
+                .ConfigureWebHostDefaults(webHostBuilder => webHostBuilder
                     .Configure(applicationBuilder => applicationBuilder.Run(
                         context => context.Response.WriteAsync("Hello world!"))))
                 .Build()
