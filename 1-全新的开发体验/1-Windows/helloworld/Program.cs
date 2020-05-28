@@ -12,7 +12,7 @@ namespace helloworld
             Host.CreateDefaultBuilder()
                 .ConfigureWebHost(webHostBuilder => webHostBuilder
                     .UseKestrel()
-                    .Configure(app => app.Run(
+                    .Configure(applicationBuilder => applicationBuilder.Run(
                         context => context.Response.WriteAsync("Hello world!"))))
                 .Build()
                 .Run();
