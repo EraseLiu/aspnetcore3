@@ -23,10 +23,14 @@ namespace helloworld
         }
     }
     
-    public class HelloController
+    public class HelloController : Controller
     {
-        [HttpGet("/hello")]
-        public string SayHello() => "Hello World.";
+        [HttpGet("/hello/{name}")]
+        public IActionResult SayHello(string name)
+        {
+            ViewBag.Name = name;
+            return View();
+        }
     }
 
 }
