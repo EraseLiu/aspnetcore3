@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace helloworld
@@ -11,10 +12,21 @@ namespace helloworld
         {
             Host.CreateDefaultBuilder()
                 .ConfigureWebHostDefaults(webHostBuilder => webHostBuilder
-                    .Configure(applicationBuilder => applicationBuilder.Run(
-                        context => context.Response.WriteAsync("Hello world!"))))
+                    .ConfigureServices(collection => collection
+                        .AddRouting()
+                        .AddControllersWithViews())
+                    .Configure(applicationBuilder => applicationBuilder
+                        .UseRouting()
+                        .UseEndpoints(builder => builder.MapControllers())))
                 .Build()
                 .Run();
         }
     }
+    
+    public class HelloController
+    {
+        [HttpGet("/hello")]
+        public string SayHello() => "Hello World.";
+    }
+
 }
